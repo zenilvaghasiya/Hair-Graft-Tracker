@@ -4,99 +4,22 @@ import { useState, useRef, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
 import Image from 'next/image'
 import FeaturesBg from '@/public/images/features-bg.png'
-import TechDashboard from '@/public/images/technician-dashboard.png'
-import SurgicalDetails from '@/public/images/surgical-details.png'
-import DoctorList from '@/public/images/doctor-list.png'
-import MainDashboard from '@/public/images/main-dashboard.png'
-import PastSurgery from '@/public/images/previous-surgery.png'
+import S1 from '@/public/images/doctor-list.png'
 import FeaturesElement from '@/public/images/features-element.png'
 
 export default function Features() {
+  
   const [tab, setTab] = useState<number>(1)
+
   const tabs = useRef<HTMLDivElement>(null)
-  const timeoutRef = useRef<number | null>(null)  // for the interval
-  const pauseTimeoutRef = useRef<number | null>(null) // for the pause duration
 
   const heightFix = () => {
     if (tabs.current && tabs.current.parentElement) tabs.current.parentElement.style.height = `${tabs.current.clientHeight}px`
   }
 
   useEffect(() => {
-    // Function to change tab
-    const changeTab = () => {
-      setTab((prevTab) => {
-        return prevTab < 4 ? prevTab + 1 : 1;
-      });
-    }
-
-    // Start the auto rotation
-    timeoutRef.current = window.setInterval(changeTab, 5000);
-
-    // Cleanup on unmount
-    return () => {
-      if (timeoutRef.current) {
-        clearInterval(timeoutRef.current);
-      }
-      if (pauseTimeoutRef.current) {
-        clearTimeout(pauseTimeoutRef.current);
-      }
-    };
-  }, [])
-
-  const handleTabClick = (selectedTab: number) => {
-    setTab(selectedTab);
-
-    // Clear the auto rotation interval
-    if (timeoutRef.current) {
-      clearInterval(timeoutRef.current);
-    }
-
-    // If there's an existing pause timeout, clear it
-    if (pauseTimeoutRef.current) {
-      clearTimeout(pauseTimeoutRef.current);
-    }
-
-    // Set a timeout to resume the auto rotation after 15 seconds
-    pauseTimeoutRef.current = window.setTimeout(() => {
-      timeoutRef.current = window.setInterval(() => {
-        setTab((prevTab) => {
-          return prevTab < 4 ? prevTab + 1 : 1;
-        });
-      }, 5000);
-    }, 10000);
-  }
-  // const [tab, setTab] = useState<number>(1)
-  
-  // useEffect(() => {
-  //   heightFix();
-
-  //   // Set a timer to change the tab value every 5 seconds
-  //   const timer = setInterval(() => {
-  //     setTab((prevTab) => {
-  //       if (prevTab === 4) { // if there are 4 tabs
-  //         return 1;
-  //       } else {
-  //         return prevTab + 1;
-  //       }
-  //     });
-  //   }, 5000); // 5000 ms = 5 seconds
-
-  //   // Clear the timer when the component is unmounted
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-
-  // }, []); 
-
-  // const tabs = useRef<HTMLDivElement>(null)
-
-  // const heightFix = () => {
-  //   if (tabs.current && tabs.current.parentElement) tabs.current.parentElement.style.height = `${tabs.current.clientHeight}px`
-  // }
-
-  // useEffect(() => {
-  //   heightFix()
-  // }, []) 
+    heightFix()
+  }, []) 
 
   return (
     <section className="relative">
@@ -126,13 +49,9 @@ export default function Features() {
               {/* Tabs buttons */}
               <div className="mb-8 md:mb-0">
                 <a
-                   
                   className={`flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 ${tab !== 1 ? 'bg-white shadow-md border-gray-200 hover:shadow-lg' : 'bg-gray-200 border-transparent'}`}
                   href="#0"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleTabClick(1);
-                  }}
+                  onClick={(e) => { e.preventDefault(); setTab(1); }}
                 >
                   <div>
                     <div className="font-bold leading-snug tracking-tight mb-1">One-Click FUE Data Entry:</div>
@@ -147,10 +66,7 @@ export default function Features() {
                 <a
                   className={`flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 ${tab !== 2 ? 'bg-white shadow-md border-gray-200 hover:shadow-lg' : 'bg-gray-200 border-transparent'}`}
                   href="#0"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleTabClick(2);
-                  }}
+                  onClick={(e) => { e.preventDefault(); setTab(2); }}
                 >
                   <div>
                     <div className="font-bold leading-snug tracking-tight mb-1">Live Dashboard for Surgeons:</div>
@@ -165,10 +81,7 @@ export default function Features() {
                 <a
                   className={`flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 ${tab !== 3 ? 'bg-white shadow-md border-gray-200 hover:shadow-lg' : 'bg-gray-200 border-transparent'}`}
                   href="#0"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleTabClick(3);
-                  }}
+                  onClick={(e) => { e.preventDefault(); setTab(3); }}
                 >
                   <div>
                     <div className="font-bold leading-snug tracking-tight mb-1">Structured Hospital Management:</div>
@@ -183,10 +96,7 @@ export default function Features() {
                 <a
                   className={`flex items-center text-lg p-5 rounded border transition duration-300 ease-in-out mb-3 ${tab !== 4 ? 'bg-white shadow-md border-gray-200 hover:shadow-lg' : 'bg-gray-200 border-transparent'}`}
                   href="#0"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleTabClick(4);
-                  }}
+                  onClick={(e) => { e.preventDefault(); setTab(4); }}
                 >
                   <div>
                     <div className="font-bold leading-snug tracking-tight mb-1">Analytics to Refine Procedures:</div>
@@ -223,8 +133,8 @@ export default function Features() {
                     unmount={false}                     
                   >
                     <div className="relative inline-flex flex-col">
-                      <Image className="md:max-w-none mx-auto rounded" src={TechDashboard} width={700} height="1000" alt="Features bg" />
-                      {/* <Image className="md:max-w-none absolute w-full left-0 transform animate-float" src={FeaturesElement} width={500} height="44" alt="Element" style={{ top: '30%' }} /> */}
+                      <Image className="md:max-w-none mx-auto rounded" src={S1} width={500} height={462} alt="Features bg" />
+                      <Image className="md:max-w-none absolute w-full left-0 transform animate-float" src={FeaturesElement} width={500} height="44" alt="Element" style={{ top: '30%' }} />
                     </div>
                   </Transition>
                   {/* Item 2 */}
@@ -242,8 +152,8 @@ export default function Features() {
                     unmount={false}                     
                   >
                     <div className="relative inline-flex flex-col">
-                      <Image className="md:max-w-none mx-auto rounded" src={MainDashboard} width={700} height="1000" alt="Features bg" />
-                      {/* <Image className="md:max-w-none absolute w-full left-0 transform animate-float" src={FeaturesElement} width={500} height="44" alt="Element" style={{ top: '30%' }} /> */}
+                      <Image className="md:max-w-none mx-auto rounded" src={FeaturesBg} width={500} height="462" alt="Features bg" />
+                      <Image className="md:max-w-none absolute w-full left-0 transform animate-float" src={FeaturesElement} width={500} height="44" alt="Element" style={{ top: '30%' }} />
                     </div>
                   </Transition>
                   {/* Item 3 */}
@@ -261,29 +171,8 @@ export default function Features() {
                     unmount={false}                     
                   >
                     <div className="relative inline-flex flex-col">
-                      <Image className="md:max-w-none mx-auto rounded" src={DoctorList} width={700} height="1000" alt="Features bg" />
-                      {/* <Image className="md:max-w-none absolute w-full left-0 transform animate-float" src={FeaturesElement} width={500} height="44" alt="Element" style={{ top: '30%' }} /> */}
-                    </div>
-                  </Transition>
-                  {/* Item 4*/}
-                  <Transition
-                    show={tab === 4}
-                    appear={true}
-                    className="w-full"
-                    enter="transition ease-in-out duration-700 transform order-first"
-                    enterFrom="opacity-0 translate-y-16"
-                    enterTo="opacity-100 translate-y-0"
-                    leave="transition ease-in-out duration-300 transform absolute"
-                    leaveFrom="opacity-100 translate-y-0"
-                    leaveTo="opacity-0 -translate-y-16"
-                    beforeEnter={() => heightFix()}
-                    unmount={false}                     
-                  >
-                    <div className="relative inline-flex flex-col">
-                      <Image className="md:max-w-none mx-auto rounded" src={SurgicalDetails} width={600} height="500" alt="Features bg" />
-                      <Image className="md:max-w-none mx-auto rounded mt-4" src={PastSurgery} width={600} height="500" alt="Features bg" />
-                      
-                      {/* <Image className="md:max-w-none absolute w-full left-0 transform animate-float" src={FeaturesElement} width={500} height="44" alt="Element" style={{ top: '30%' }} /> */}
+                      <Image className="md:max-w-none mx-auto rounded" src="./tailwind-landing-page-template/public/images/technician-dashboard.png" width={500} height="462" alt="Features bg" />
+                      <Image className="md:max-w-none absolute w-full left-0 transform animate-float" src={FeaturesElement} width={500} height="44" alt="Element" style={{ top: '30%' }} />
                     </div>
                   </Transition>
                 </div>
