@@ -18,7 +18,7 @@ export default function Logo() {
       <img 
         src="/images/main-logo.png" 
         alt="Company Logo" 
-        className="h-28 w-auto" // `h-12` sets the height to 48px. `w-auto` ensures the width scales automatically to maintain the logo's aspect ratio.
+        className="h-20 w-auto" // `h-12` sets the height to 48px. `w-auto` ensures the width scales automatically to maintain the logo's aspect ratio.
       />
     </Link>
   )

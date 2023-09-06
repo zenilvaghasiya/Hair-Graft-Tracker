@@ -1,6 +1,9 @@
 import VideoThumb from '@/public/images/surgical-dashboard.png'
 import ModalVideo from '@/components/modal-video'
-
+export const metadata = {
+    title: 'Hair Graft Tracker',
+    description: 'Get ready to revolutionize your surgical process with Hair Grafts Tracker—the first of its kind in the hair transplant industry!',
+  }
 export default function Hero() {
   return (
     <section className="relative">
