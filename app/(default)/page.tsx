@@ -15,6 +15,9 @@ import SubmitForm from '@/components/submitForm'
 export default function Home() {
   return (
     <>
+      <head>
+      <meta name="google-site-verification" content="3mMGbAuhFg4xcLEFolZvayNvtiHOymwPgSiF0-sx4Sg" />
+      </head>
       <Hero />
       <Challenges />
       <Features />
